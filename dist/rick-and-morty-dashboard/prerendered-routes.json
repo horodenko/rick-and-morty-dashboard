@@ -1,0 +1,8 @@
+{
+  "routes": [
+    "/characters",
+    "/episodes",
+    "/home",
+    "/locations"
+  ]
+}
