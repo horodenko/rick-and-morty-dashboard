@@ -1,17 +1,20 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { Observable, catchError } from 'rxjs';
+import { ILocation } from '../../../models/location/location.interface';
+import { IApiMain } from '../../../models/api-main/api-main.interface';
+import { environment } from '../../../../environments/environment';
 
 @Injectable({
   providedIn: 'root',
 })
-export class LocationsService {
+export class LocationService {
   constructor(private http: HttpClient) {}
 
-  private apiUrl = 'https://rickandmortyapi.com/api/location';
+  private apiUrl = `${environment.api}/location`;
 
-  onGetLocations(page: number, name: string = ''): Observable<unknown> {
-    return this.http.get(`${this.apiUrl}/page=${page}&name=${name}`);
+  onGetLocations(name: string): Observable<IApiMain<ILocation>> {
+    return this.http.get<IApiMain<ILocation>>(`${this.apiUrl}?name=${name}`);
   }
 
   onGetLocationDetails(id: number): Observable<unknown> {

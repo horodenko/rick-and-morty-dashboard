@@ -1,1 +1,6 @@
-<p>locations works!</p>
+<app-dashboard
+  [dataArray]="locations"
+  [columns]="columns"
+  [emptyListMessage]="errorMessage"
+  (fetchData)="onFetchData($event)"
+></app-dashboard>
