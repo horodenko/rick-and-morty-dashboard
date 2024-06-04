@@ -1,0 +1,37 @@
+.header-container {
+  position: fixed;
+  top: 0;
+  z-index: 2;
+  width: 100%;
+}
+
+.divider {
+  width: 1px;
+  background-color: white;
+  height: 63px;
+  margin-left: 101px;
+}
+
+.toolbar-row {
+  display: flex;
+  justify-content: space-between;
+}
+
+.drawer-container {
+  height: 100dvh;
+}
+
+:is(.drawer, .drawer-content) {
+  margin-top: 64px;
+}
+
+.drawer {
+  width: 16rem !important;
+}
+
+/** Media queries */
+@media (max-width: 599px) {
+  :is(.drawer, .drawer-content) {
+    margin-top: 56px;
+  }
+}
