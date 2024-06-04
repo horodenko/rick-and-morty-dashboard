@@ -1,1 +1,6 @@
-<p>characters works!</p>
+<app-dashboard
+  [dataArray]="characters"
+  [columns]="columns"
+  [emptyListMessage]="errorMessage"
+  (fetchData)="onFetchData($event)"
+></app-dashboard>
