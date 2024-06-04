@@ -9,24 +9,13 @@ import { BehaviorSubject } from 'rxjs';
  * to retain it when changing routes
  */
 export class SearchService {
-  constructor() {}
-
-  private readonly SESSION_STORAGE_KEY = 'searchValue';
-  private searchValueSubject = new BehaviorSubject<string>(
-    this.getStoredSearchValue()
-  );
-  searchValue$ = this.searchValueSubject.asObservable();
+  private searchValueSubject$ = new BehaviorSubject<string>('');
 
   setSearchValue(value: string): void {
-    this.searchValueSubject.next(value);
-    sessionStorage.setItem(this.SESSION_STORAGE_KEY, value);
+    this.searchValueSubject$.next(value);
   }
 
   getSearchValue(): string {
-    return this.searchValueSubject.value;
-  }
-
-  private getStoredSearchValue(): string {
-    return sessionStorage.getItem(this.SESSION_STORAGE_KEY) || '';
+    return this.searchValueSubject$.getValue();
   }
 }
