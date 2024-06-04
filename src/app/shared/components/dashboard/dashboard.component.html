@@ -1,1 +1,50 @@
-<p>dashboard works!</p>
+<div class="container">
+  <form [formGroup]="searchForm" class="search-bar" (ngSubmit)="onSearch()">
+    <input
+      type="text"
+      placeholder="Search"
+      formControlName="searchValue"
+      class="search-bar-input"
+    />
+  </form>
+</div>
+
+<div class="table-container">
+  <table mat-table matSort [dataSource]="dataArray" class="mat-elevation-z8">
+    <ng-container
+      *ngFor="let column of displayedColumns"
+      [matColumnDef]="column"
+    >
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>
+        {{ column | uppercase }}
+      </th>
+
+      <ng-container *ngIf="column !== 'details'; else elementDetail">
+        <td mat-cell *matCellDef="let element">
+          {{ element[column] }}
+        </td>
+      </ng-container>
+
+      <ng-template #elementDetail>
+        <td mat-cell *matCellDef="let element">
+          <button mat-raised-button color="primary">
+            <mat-icon>remove_red_eye</mat-icon>
+          </button>
+        </td>
+      </ng-template>
+    </ng-container>
+
+    <tr
+      mat-header-row
+      *matHeaderRowDef="displayedColumns; sticky: true"
+      class="table-header"
+    ></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+  </table>
+  <ng-container *ngIf="emptyListMessage">{{ emptyListMessage }}</ng-container>
+</div>
+
+<mat-paginator
+  [pageSizeOptions]="[5, 10, allData]"
+  showFirstLastButtons
+></mat-paginator>
