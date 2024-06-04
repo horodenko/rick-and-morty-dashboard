@@ -1,1 +1,6 @@
-<p>episodes works!</p>
+<app-dashboard
+  [dataArray]="episodes"
+  [columns]="columns"
+  [emptyListMessage]="errorMessage"
+  (fetchData)="onFetchData($event)"
+></app-dashboard>
