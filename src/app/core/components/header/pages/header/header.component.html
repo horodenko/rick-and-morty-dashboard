@@ -4,7 +4,7 @@
       <button (click)="drawer.toggle()" mat-icon-button>
         <mat-icon>menu</mat-icon>
       </button>
-      <span>Rick and Morty</span>
+      <h1>Rick and Morty</h1>
       <mat-icon class="example-icon" aria-hidden="false" aria-label="User"
         >person</mat-icon
       >
@@ -16,13 +16,13 @@
   <mat-drawer #drawer mode="side" class="drawer">
     <mat-nav-list>
       <mat-list-item>
-        <span><a href="/characters">Characters</a></span>
+        <span><a [routerLink]="['/characters']">Characters</a></span>
       </mat-list-item>
       <mat-list-item>
-        <span><a href="/locations">Locations</a></span>
+        <span><a [routerLink]="['/locations']">Locations</a></span>
       </mat-list-item>
       <mat-list-item>
-        <span><a href="/episodes">Episodes</a></span>
+        <span><a [routerLink]="['/episodes']">Episodes</a></span>
       </mat-list-item>
     </mat-nav-list>
   </mat-drawer>
