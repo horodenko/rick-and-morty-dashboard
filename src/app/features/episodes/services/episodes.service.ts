@@ -4,6 +4,7 @@ import { Observable } from 'rxjs';
 import { IApiMain } from '../../../models/api-main/api-main.interface';
 import { IEpisode } from '../../../models/episode/episode.interface';
 import { environment } from '../../../../environments/environment';
+import { IEpisodeDetail } from '../../../models/episode/episode-detail.interface';
 
 @Injectable({
   providedIn: 'root',
@@ -20,7 +21,7 @@ export class EpisodeService {
     return this.http.get<IApiMain<IEpisode>>(`${this.apiUrl}?name=${name}`);
   }
 
-  onGetEpisodeDetails(id: number): Observable<unknown> {
-    return this.http.get(`${this.apiUrl}/${id}`);
+  onGetEpisodeDetails(id: number): Observable<IEpisodeDetail> {
+    return this.http.get<IEpisodeDetail>(`${this.apiUrl}/${id}`);
   }
 }

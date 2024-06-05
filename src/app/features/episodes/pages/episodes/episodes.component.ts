@@ -24,7 +24,7 @@ export class EpisodesComponent {
       episodes$: Observable<IEpisode[]>;
   */
   protected episodes: IEpisode[] = [];
-  protected columns: string[] = ['name', 'air_date'];
+  protected columns: string[] = ['name', 'air_date', 'episode'];
   protected errorMessage: string = '';
 
   ngOnInit(): void {

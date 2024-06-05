@@ -1,0 +1,57 @@
+<ng-container *ngIf="!episodeExists; else episodeInfo"></ng-container>
+<ng-template #episodeInfo>
+  <div class="d-xl-flex">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-4 field-container">
+          <label>Name</label
+          ><input
+            class="form-control"
+            type="text"
+            [placeholder]="episodeDetails?.name"
+            readonly
+          />
+        </div>
+        <div class="col-md-4 field-container">
+          <label>Air Date</label
+          ><input
+            class="form-control"
+            type="text"
+            [placeholder]="episodeDetails?.air_date"
+            readonly
+          />
+        </div>
+        <div class="col-md-4 field-container">
+          <label>Episode</label
+          ><input
+            class="form-control"
+            type="text"
+            [placeholder]="episodeDetails?.episode"
+            readonly
+          />
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-4 field-container">
+          <label>Characters</label>
+          <select class="form-select" (change)="onCharacterChange($event)">
+            <ng-container *ngFor="let character of characterInfos">
+              <option [value]="character.id">{{ character.name }}</option>
+            </ng-container>
+          </select>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-12 col-md-4 field-container">
+          <a
+            class="btn btn-primary"
+            [routerLink]="['/characters', selectedCharacterID]"
+            role="button"
+            aria-disabled="true"
+            >Check Resident</a
+          >
+        </div>
+      </div>
+    </div>
+  </div>
+</ng-template>
