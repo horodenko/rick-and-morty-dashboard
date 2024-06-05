@@ -4,6 +4,7 @@ import { Observable, catchError } from 'rxjs';
 import { ILocation } from '../../../models/location/location.interface';
 import { IApiMain } from '../../../models/api-main/api-main.interface';
 import { environment } from '../../../../environments/environment';
+import { ILocationDetail } from '../../../models/location/location-detail.interface';
 
 @Injectable({
   providedIn: 'root',
@@ -17,7 +18,7 @@ export class LocationService {
     return this.http.get<IApiMain<ILocation>>(`${this.apiUrl}?name=${name}`);
   }
 
-  onGetLocationDetails(id: number): Observable<unknown> {
-    return this.http.get(`${this.apiUrl}/${id}`);
+  onGetLocationDetails(id: number): Observable<ILocationDetail> {
+    return this.http.get<ILocationDetail>(`${this.apiUrl}/${id}`);
   }
 }

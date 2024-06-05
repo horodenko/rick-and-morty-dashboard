@@ -1,0 +1,57 @@
+<ng-container *ngIf="!locationExists; else locationInfo"></ng-container>
+<ng-template #locationInfo>
+  <div class="d-xl-flex">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-4 field-container">
+          <label>Name</label
+          ><input
+            class="form-control"
+            type="text"
+            [placeholder]="locationDetails?.name"
+            readonly
+          />
+        </div>
+        <div class="col-md-4 field-container">
+          <label>Type</label
+          ><input
+            class="form-control"
+            type="text"
+            [placeholder]="locationDetails?.type"
+            readonly
+          />
+        </div>
+        <div class="col-md-4 field-container">
+          <label>Dimension</label
+          ><input
+            class="form-control"
+            type="text"
+            [placeholder]="locationDetails?.dimension"
+            readonly
+          />
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-4 field-container">
+          <label>Residents</label>
+          <select class="form-select" (change)="onResidentChange($event)">
+            <ng-container *ngFor="let resident of residentsInfos">
+              <option [value]="resident.id">{{ resident.name }}</option>
+            </ng-container>
+          </select>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-12 col-md-4 field-container">
+          <a
+            class="btn btn-primary"
+            [routerLink]="['/characters', selectedResidentID]"
+            role="button"
+            aria-disabled="true"
+            >Check Resident</a
+          >
+        </div>
+      </div>
+    </div>
+  </div>
+</ng-template>

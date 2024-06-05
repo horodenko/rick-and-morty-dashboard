@@ -1,0 +1,11 @@
+.field-container {
+  margin-top: 28px;
+}
+
+.field-container .form-control {
+  cursor: default;
+}
+
+.field-container .form-select {
+  cursor: pointer;
+}
