@@ -1,7 +1,6 @@
 .table-container {
   height: 450px;
   overflow: auto;
-  margin: 3rem;
 }
 
 .table-header {

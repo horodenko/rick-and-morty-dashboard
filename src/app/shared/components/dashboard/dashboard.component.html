@@ -27,9 +27,9 @@
 
       <ng-template #elementDetail>
         <td mat-cell *matCellDef="let element">
-          <button mat-raised-button color="primary">
+          <a color="primary" [routerLink]="element.id">
             <mat-icon>remove_red_eye</mat-icon>
-          </button>
+          </a>
         </td>
       </ng-template>
     </ng-container>
@@ -41,7 +41,9 @@
     ></tr>
     <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
   </table>
-  <ng-container *ngIf="emptyListMessage">{{ emptyListMessage }}</ng-container>
+  <ng-container *ngIf="emptyListMessage">
+    <h2>{{ emptyListMessage }}.</h2>
+  </ng-container>
 </div>
 
 <mat-paginator
