@@ -1,36 +1,42 @@
-import { Component, HostListener, ViewChild } from '@angular/core';
-import { RouterOutlet } from '@angular/router';
+import {
+  AfterViewChecked,
+  Component,
+  EventEmitter,
+  HostListener,
+  Output,
+  ViewChild,
+} from '@angular/core';
+import { RouterModule } from '@angular/router';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatIconModule } from '@angular/material/icon';
 import { MatDrawer, MatSidenavModule } from '@angular/material/sidenav';
 import { MatListModule } from '@angular/material/list';
-import { SidebarComponent } from '../../../sidebar/pages/sidebar.component';
 import { MatButtonModule } from '@angular/material/button';
 
 @Component({
-  selector: 'app-header',
+  selector: 'app-nav',
   standalone: true,
   imports: [
-    RouterOutlet,
+    RouterModule,
     MatToolbarModule,
     MatIconModule,
     MatButtonModule,
     MatSidenavModule,
     MatListModule,
-
-    SidebarComponent,
   ],
-  templateUrl: './header.component.html',
-  styleUrl: './header.component.css',
+  templateUrl: './nav.component.html',
+  styleUrl: './nav.component.css',
 })
-export class HeaderComponent {
+export class NavComponent {
   @ViewChild('drawer') drawer!: MatDrawer;
   @HostListener('window:resize')
   onWindowResize() {
     this.onSetDrawerMode();
   }
 
-  ngAfterViewInit(): void {
+  protected isOpen: boolean = false;
+
+  ngAfterViewChecked(): void {
     this.onSetDrawerMode();
   }
 
