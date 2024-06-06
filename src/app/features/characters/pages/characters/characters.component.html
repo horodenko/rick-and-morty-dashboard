@@ -2,5 +2,8 @@
   [dataArray]="characters"
   [columns]="columns"
   [emptyListMessage]="errorMessage"
+  [totalItems]="paginationInfo.info.count"
+  [pageSize]="pageSize"
   (fetchData)="onFetchData($event)"
+  (pageChange)="onPageChange($event)"
 ></app-dashboard>

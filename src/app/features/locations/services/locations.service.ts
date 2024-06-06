@@ -14,8 +14,13 @@ export class LocationService {
 
   private apiUrl = `${environment.api}/location`;
 
-  onGetLocations(name: string): Observable<IApiMain<ILocation>> {
-    return this.http.get<IApiMain<ILocation>>(`${this.apiUrl}?name=${name}`);
+  onGetLocations(
+    name: string,
+    pageIndex: number = 0
+  ): Observable<IApiMain<ILocation>> {
+    return this.http.get<IApiMain<ILocation>>(
+      `${this.apiUrl}?name=${name}&page=${pageIndex + 1}`
+    );
   }
 
   onGetLocationDetails(id: number): Observable<ILocationDetail> {

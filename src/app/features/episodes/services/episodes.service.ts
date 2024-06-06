@@ -15,10 +15,12 @@ export class EpisodeService {
   private apiUrl = `${environment.api}/episode`;
 
   onGetEpisodes(
-    // page: number = 0,
-    name: string
+    name: string = '',
+    pageIndex: number = 0
   ): Observable<IApiMain<IEpisode>> {
-    return this.http.get<IApiMain<IEpisode>>(`${this.apiUrl}?name=${name}`);
+    return this.http.get<IApiMain<IEpisode>>(
+      `${this.apiUrl}?name=${name}&page=${pageIndex + 1}`
+    );
   }
 
   onGetEpisodeDetails(id: number): Observable<IEpisodeDetail> {
