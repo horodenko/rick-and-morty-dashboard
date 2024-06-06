@@ -3,7 +3,7 @@
   <div class="d-xl-flex">
     <div class="container">
       <div class="row">
-        <div class="col-md-4 field-container">
+        <div class="col-lg-4 field-container">
           <label>Name</label
           ><input
             class="form-control"
@@ -12,7 +12,7 @@
             readonly
           />
         </div>
-        <div class="col-md-4 field-container">
+        <div class="col-lg-4 field-container">
           <label>Type</label
           ><input
             class="form-control"
@@ -21,7 +21,7 @@
             readonly
           />
         </div>
-        <div class="col-md-4 field-container">
+        <div class="col-lg-4 field-container">
           <label>Dimension</label
           ><input
             class="form-control"
@@ -32,24 +32,33 @@
         </div>
       </div>
       <div class="row">
-        <div class="col-md-4 field-container">
+        <div class="col-lg-4 field-container">
           <label>Residents</label>
           <select class="form-select" (change)="onResidentChange($event)">
-            <ng-container *ngFor="let resident of residentsInfos">
+            <ng-container *ngFor="let resident of residentInfos">
               <option [value]="resident.id">{{ resident.name }}</option>
             </ng-container>
           </select>
         </div>
-      </div>
-      <div class="row">
-        <div class="col-12 col-md-4 field-container">
+        <div class="col-lg-4 field-container">
           <a
             class="btn btn-primary"
+            *ngIf="selectedResidentID; else disabledButton"
             [routerLink]="['/characters', selectedResidentID]"
             role="button"
             aria-disabled="true"
-            >Check Resident</a
-          >
+            >Check Resident
+          </a>
+          <ng-template #disabledButton>
+            <button
+              class="btn btn-primary"
+              role="button"
+              disabled
+              aria-disabled="true"
+            >
+              Check Character
+            </button>
+          </ng-template>
         </div>
       </div>
     </div>

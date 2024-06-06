@@ -25,11 +25,11 @@ export class LocationDetailComponent {
   protected routeID: string = '';
   protected locationDetails: ILocationDetail | undefined;
   protected locationExists: boolean = false;
-  protected residentsInfos: ICharacterDetail[] = [];
+  protected residentInfos: ICharacterDetail[] = [];
   protected selectedResidentID: number | undefined;
 
   ngOnInit(): void {
-    this.route.params.subscribe(params => (this.routeID = params['id']));
+    this.route.params.subscribe(param => (this.routeID = param['id']));
     this.onLoadLocationDetails();
   }
 
@@ -59,7 +59,7 @@ export class LocationDetailComponent {
     /** Assign residents to completed observables */
     forkJoin<ICharacterDetail[]>(requests).subscribe({
       next: newResidents => {
-        this.residentsInfos = newResidents;
+        this.residentInfos = newResidents;
         this.selectedResidentID = newResidents[0].id;
       },
     });
@@ -68,6 +68,5 @@ export class LocationDetailComponent {
   onResidentChange(event: Event) {
     const selectedElement = event.target as HTMLSelectElement;
     this.selectedResidentID = Number(selectedElement.value);
-    console.log('Selected Resident ID:', this.selectedResidentID);
   }
 }

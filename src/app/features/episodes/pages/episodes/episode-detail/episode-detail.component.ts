@@ -29,7 +29,7 @@ export class EpisodeDetailComponent {
   protected selectedCharacterID: number | undefined;
 
   ngOnInit(): void {
-    this.route.params.subscribe(params => (this.routeID = params['id']));
+    this.route.params.subscribe(param => (this.routeID = param['id']));
     this.onLoadEpisodeDetails();
   }
 
@@ -68,6 +68,5 @@ export class EpisodeDetailComponent {
   onCharacterChange(event: Event) {
     const selectedElement = event.target as HTMLSelectElement;
     this.selectedCharacterID = Number(selectedElement.value);
-    console.log('Selected Character ID:', this.selectedCharacterID);
   }
 }
