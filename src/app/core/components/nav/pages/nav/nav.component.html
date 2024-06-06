@@ -1,17 +1,43 @@
-<div class="header-container">
-  <mat-toolbar color="primary" class="header">
-    <mat-toolbar-row class="toolbar-row">
-      <button (click)="drawer.toggle()" mat-icon-button>
-        <mat-icon>menu</mat-icon>
+<ng-container *ngIf="isUserAuthenticated()">
+  <nav class="navbar navbar-light bg-light">
+    <div class="container-fluid">
+      <button
+        class="navbar-toggler"
+        (click)="drawer.toggle()"
+        type="button"
+        data-bs-toggle="collapse"
+        aria-expanded="false"
+        aria-label="Toggle navigation"
+      >
+        <span class="navbar-toggler-icon"></span>
       </button>
-      <h1>Rick and Morty</h1>
-      <mat-icon class="example-icon" aria-hidden="false" aria-label="User"
-        >person
-      </mat-icon>
-    </mat-toolbar-row>
-  </mat-toolbar>
-</div>
-
+      <span class="navbar-brand navbar-brand-center">Rick and Morty</span>
+      <div class="dropdown d-flex">
+        <ng-container *ngIf="username.length">
+          <span class="nav-link mt-2 mx-2">Hello, {{ username }}.</span>
+        </ng-container>
+        <button
+          class="btn btn-light dropdown-toggle"
+          type="button"
+          id="dropdownMenuButton1"
+          data-bs-toggle="dropdown"
+          aria-expanded="false"
+        >
+          <i class="bi bi-person"></i>
+        </button>
+        <ul
+          class="dropdown-menu dropdown-menu-end"
+          aria-labelledby="dropdownMenuButton1"
+        >
+          <li>
+            <a class="dropdown-item" routerLink="/user-profile">Profile</a>
+          </li>
+          <li><a class="dropdown-item" routerLink="/sign-in">Sign out</a></li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+</ng-container>
 <mat-drawer-container class="drawer-container">
   <mat-drawer #drawer mode="side" class="drawer">
     <mat-nav-list>
