@@ -1,0 +1,18 @@
+.field-container {
+  margin-top: 28px;
+}
+
+.field-container .form-control {
+  cursor: default;
+}
+
+.field-container a {
+  margin-top: 20px;
+}
+
+/** Media queries */
+@media screen and (min-width: 1199px) {
+  .container {
+    margin-left: 128px;
+  }
+}

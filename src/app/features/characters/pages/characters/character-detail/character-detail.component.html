@@ -1,0 +1,98 @@
+<ng-container *ngIf="!characterExists; else characterInfo"></ng-container>
+<ng-template #characterInfo>
+  <div>
+    <img
+      [src]="characterDetails!.image"
+      alt="Image of some weird character"
+      class="character-image rounded-circle"
+      loading="lazy"
+    />
+  </div>
+
+  <div class="row">
+    <div class="col-lg-4 field-container">
+      <label>Name</label
+      ><input
+        class="form-control"
+        type="text"
+        [placeholder]="characterDetails?.name"
+        readonly
+      />
+    </div>
+    <div class="col-lg-4 field-container">
+      <label>Status</label
+      ><input
+        class="form-control"
+        type="text"
+        [placeholder]="characterDetails?.status"
+        readonly
+      />
+    </div>
+    <div class="col-lg-4 field-container">
+      <label>Species</label
+      ><input
+        class="form-control"
+        type="text"
+        [placeholder]="characterDetails?.species"
+        readonly
+      />
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-lg-4 field-container">
+      <label>Type</label
+      ><input
+        class="form-control"
+        type="text"
+        [placeholder]="characterDetails?.type"
+        readonly
+      />
+    </div>
+    <div class="col-lg-4 field-container">
+      <label>Gender</label
+      ><input
+        class="form-control"
+        type="text"
+        [placeholder]="characterDetails?.gender"
+        readonly
+      />
+    </div>
+    <div class="col-lg-4 field-container">
+      <label>Origin</label
+      ><input
+        class="form-control"
+        type="text"
+        [placeholder]="characterDetails?.origin?.name"
+        readonly
+      />
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-lg-4 field-container">
+      <label>Location</label
+      ><input
+        class="form-control"
+        type="text"
+        [placeholder]="characterDetails?.location?.name"
+        readonly
+      />
+    </div>
+    <div class="col-lg-4 field-container">
+      <label>Episodes</label>
+      <select class="form-select" (change)="onEpisodeChange($event)">
+        <ng-container *ngFor="let episode of episodeInfos">
+          <option [value]="episode.id">{{ episode.name }}</option>
+        </ng-container>
+      </select>
+    </div>
+    <div class="col-lg-4 field-container">
+      <a
+        class="btn btn-primary"
+        [routerLink]="['/episodes', selectedEpisodeID]"
+        role="button"
+        aria-disabled="true"
+        >Check Episode</a
+      >
+    </div>
+  </div>
+</ng-template>
