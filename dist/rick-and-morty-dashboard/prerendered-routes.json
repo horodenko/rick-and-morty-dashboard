@@ -2,7 +2,8 @@
   "routes": [
     "/characters",
     "/episodes",
-    "/home",
-    "/locations"
+    "/locations",
+    "/sign-in",
+    "/user-profile"
   ]
 }
