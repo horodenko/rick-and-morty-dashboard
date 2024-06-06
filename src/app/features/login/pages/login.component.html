@@ -1,1 +1,26 @@
-<p>login works!</p>
+<div class="d-flex justify-content-center align-items-center h-75">
+  <div class="d-flex justify-content-center align-items-center h-100 w-100">
+    <form (ngSubmit)="onLogin()" class="w-25">
+      <div class="mb-3">
+        <label for="username" class="form-label">Username</label>
+        <input
+          type="text"
+          [(ngModel)]="username"
+          name="username"
+          class="form-control"
+        />
+      </div>
+      <div class="mb-3">
+        <label for="password" class="form-label">Password</label>
+        <input type="password" class="form-control" />
+      </div>
+      <button
+        type="submit"
+        class="btn btn-primary"
+        [disabled]="!username.length"
+      >
+        Submit
+      </button>
+    </form>
+  </div>
+</div>
