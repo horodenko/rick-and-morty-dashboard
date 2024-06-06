@@ -6,7 +6,11 @@ import {
   Output,
   ViewChild,
 } from '@angular/core';
-import { MatPaginator } from '@angular/material/paginator';
+import {
+  MatPaginator,
+  MatPaginatorModule,
+  PageEvent,
+} from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource, MatTableModule } from '@angular/material/table';
 import { MatIconModule } from '@angular/material/icon';
@@ -14,6 +18,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { FormBuilder, ReactiveFormsModule } from '@angular/forms';
 import { SearchService } from '../../services/search.service';
 import { RouterModule } from '@angular/router';
+import { IFetchData } from '../../../models/pagination/pagination.interface';
 
 @Component({
   selector: 'app-dashboard',
@@ -21,7 +26,7 @@ import { RouterModule } from '@angular/router';
   imports: [
     CommonModule,
     MatTableModule,
-    MatPaginator,
+    MatPaginatorModule,
     MatIconModule,
     MatButtonModule,
     ReactiveFormsModule,
@@ -49,17 +54,33 @@ export class DashboardComponent<T> {
   @Input() emptyListMessage: string = '';
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
+  @Input() totalItems: number = 0;
+  @Input() pageSize: number = 0;
+  @Output() pageChange = new EventEmitter<PageEvent>();
+
+  // @Input() currentPage: number = 0;
+  // @Output() pageChange = new EventEmitter();
+
   protected dataSource = new MatTableDataSource<T>(this.dataArray);
-  protected allData = this.dataSource.data.length;
+  protected allData: number = 0;
   protected displayedColumns: string[] = [];
 
   ngOnInit(): void {
     this.displayedColumns = [...this.columns, 'details'];
+    this.dataSource.paginator = this.paginator;
+    this.dataSource.sort = this.sort;
   }
+
+  ngAfterViewInit(): void {}
 
   onSearch(): void {
     this.searchValue = this.searchForm.value.searchValue ?? '';
     this.searchService.setSearchValue(this.searchValue);
     this.fetchData.emit(this.searchValue);
+  }
+
+  onPageChange(event: PageEvent): void {
+    console.log(event);
+    this.pageChange.emit(event);
   }
 }

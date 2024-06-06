@@ -47,6 +47,11 @@
 </div>
 
 <mat-paginator
-  [pageSizeOptions]="[5, 10, allData]"
+  [length]="totalItems"
+  [pageSize]="pageSize"
+  [pageSizeOptions]="[5, 10, 25, totalItems]"
+  (page)="onPageChange($event)"
   showFirstLastButtons
+  #paginator
 ></mat-paginator>
+<!-- [pageSizeOptions]="[5, 10, 25, totalItems]" -->
