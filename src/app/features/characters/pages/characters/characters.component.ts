@@ -57,7 +57,6 @@ export class CharactersComponent {
           }
 
           /** Keep incrementing on the list */
-          debugger;
           this.characters = this.characters.concat(data.results);
           this.errorMessage = '';
           this.currentPage++;
