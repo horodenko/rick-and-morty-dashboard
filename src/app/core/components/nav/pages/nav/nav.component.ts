@@ -1,4 +1,4 @@
-import { Component, HostListener, ViewChild } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
 import { NavigationStart, Router, RouterModule } from '@angular/router';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatIconModule } from '@angular/material/icon';
@@ -7,6 +7,7 @@ import { MatListModule } from '@angular/material/list';
 import { MatButtonModule } from '@angular/material/button';
 import { UserService } from '../../../../../features/login/services/user.service';
 import { CommonModule } from '@angular/common';
+import { AuthService } from '../../../../../auth.service';
 
 @Component({
   selector: 'app-nav',
@@ -24,43 +25,32 @@ import { CommonModule } from '@angular/common';
   styleUrl: './nav.component.css',
 })
 export class NavComponent {
-  constructor(private userService: UserService, private router: Router) {
+  constructor(
+    private authService: AuthService,
+    private userService: UserService,
+    private router: Router
+  ) {
     this.router.events.subscribe(event => {
       if (event instanceof NavigationStart) {
+        // hide header when in login page;
+        // couldnt treat it with authentication,
+        // because app-nav is parent of router-outlet.
         if (event.url === '/sign-in') {
+          this.isInSignInPage = true;
           this.drawer.close();
-        }
+        } else this.isInSignInPage = false;
       }
     });
   }
 
-  username: string = '';
-
   @ViewChild('drawer') drawer!: MatDrawer;
-  @HostListener('window:resize')
-  onWindowResize() {
-    this.onSetDrawerMode();
-  }
 
-  protected isOpen: boolean = false;
-
-  ngOnInit(): void {
-    this.userService.onChangeUsername(this.userService.onGetStorageKey());
-    this.userService.currentUsername$.subscribe(
-      username => (this.username = username)
-    );
-  }
+  protected username: string = '';
+  protected isInSignInPage: boolean = false;
 
   ngAfterViewChecked(): void {
-    this.onSetDrawerMode();
+    this.username = this.userService.onRetrieveUsername();
   }
 
-  onSetDrawerMode = (): string =>
-    window.innerWidth < 768
-      ? (this.drawer.mode = 'over')
-      : (this.drawer.mode = 'side');
-
-  isUserAuthenticated(): boolean {
-    return this.userService.isAuthenticated();
-  }
+  onSignOut = (): void => this.authService.onSignOut();
 }

@@ -1,35 +1,5 @@
 .header-container {
-  position: fixed;
-  background-color: rgba(0, 73, 144);
-  top: 0;
-  z-index: 2;
-  width: 100%;
-  /* box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px, */
-  /* rgba(0, 73, 144, 0.5) 5px 10px 15px; */
-}
-
-.header-container mat-toolbar {
-  background-color: rgba(0, 73, 144);
-}
-
-.divider {
-  width: 1px;
-  background-color: white;
-  height: 63px;
-  margin-left: 101px;
-}
-
-.toolbar-row {
-  display: flex;
-  justify-content: space-between;
-}
-
-.drawer-container {
-  height: 100dvh;
-}
-
-.drawer {
-  /* margin-top: 64px; */
+  border-bottom: 1px solid lightgray;
 }
 
 .drawer {
@@ -39,12 +9,4 @@
 .drawer-content {
   margin: 3rem;
   padding: 3rem;
-  margin-top: -30px;
-}
-
-/** Media queries */
-@media (max-width: 599px) {
-  .drawer {
-    /* margin-top: 56px; */
-  }
 }

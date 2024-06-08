@@ -1,5 +1,5 @@
-<ng-container *ngIf="isUserAuthenticated()">
-  <nav class="navbar navbar-light bg-light">
+<ng-container *ngIf="!isInSignInPage">
+  <nav class="navbar navbar-light bg-light header-container">
     <div class="container-fluid">
       <button
         class="navbar-toggler"
@@ -11,7 +11,11 @@
       >
         <span class="navbar-toggler-icon"></span>
       </button>
-      <span class="navbar-brand navbar-brand-center">Rick and Morty</span>
+      <img
+        src="assets/images/Rick_and_Morty.svg"
+        alt="Rick and Morty Logo"
+        class="w-25"
+      />
       <div class="dropdown d-flex">
         <ng-container *ngIf="username.length">
           <span class="nav-link mt-2 mx-2">Hello, {{ username }}.</span>
@@ -32,27 +36,50 @@
           <li>
             <a class="dropdown-item" routerLink="/user-profile">Profile</a>
           </li>
-          <li><a class="dropdown-item" routerLink="/sign-in">Sign out</a></li>
+          <li>
+            <a class="dropdown-item" routerLink="/sign-in" (click)="onSignOut()"
+              >Sign out</a
+            >
+          </li>
         </ul>
       </div>
     </div>
   </nav>
 </ng-container>
-<mat-drawer-container class="drawer-container">
-  <mat-drawer #drawer mode="side" class="drawer">
+
+<mat-drawer-container>
+  <mat-drawer #drawer mode="over" class="drawer">
     <mat-nav-list>
       <mat-list-item>
-        <span><a [routerLink]="['/characters']">Characters</a></span>
+        <a
+          routerLink="/characters"
+          routerLinkActive="text-muted bg-light-subtle"
+          (click)="drawer.close()"
+          class="d-flex position-absolute w-100 h-100 top-0 start-0 align-items-center justify-content-center text-decoration-none link-dark sidebar-content"
+          >Characters
+        </a>
       </mat-list-item>
       <mat-list-item>
-        <span><a [routerLink]="['/locations']">Locations</a></span>
+        <a
+          routerLink="/locations"
+          routerLinkActive="text-muted bg-light-subtle"
+          (click)="drawer.close()"
+          class="d-flex position-absolute w-100 h-100 top-0 start-0 align-items-center justify-content-center text-decoration-none link-dark sidebar-content"
+          >Locations
+        </a>
       </mat-list-item>
       <mat-list-item>
-        <span><a [routerLink]="['/episodes']">Episodes</a></span>
+        <a
+          routerLink="/episodes"
+          routerLinkActive="text-muted bg-light-subtle"
+          (click)="drawer.close()"
+          class="d-flex position-absolute w-100 h-100 top-0 start-0 align-items-center justify-content-center text-decoration-none link-dark sidebar-content"
+          >Episodes
+        </a>
       </mat-list-item>
     </mat-nav-list>
   </mat-drawer>
   <mat-drawer-content class="drawer-content">
-    <router-outlet></router-outlet>
+    <ng-content></ng-content>
   </mat-drawer-content>
 </mat-drawer-container>

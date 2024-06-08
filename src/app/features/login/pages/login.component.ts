@@ -1,22 +1,22 @@
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { UserService } from '../services/user.service';
 import { Router } from '@angular/router';
+import { AuthService } from '../../../auth.service';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-login',
   standalone: true,
-  imports: [FormsModule],
+  imports: [FormsModule, CommonModule],
   templateUrl: './login.component.html',
   styleUrl: './login.component.css',
 })
 export class LoginComponent {
-  constructor(private userService: UserService, private router: Router) {}
+  constructor(private authService: AuthService, private router: Router) {}
 
   protected username: string = '';
 
-  onLogin(): void {
-    this.userService.onChangeUsername(this.username);
-    this.router.navigate(['/characters']);
+  onSignIn(): void {
+    this.authService.onSignIn(this.username);
   }
 }
