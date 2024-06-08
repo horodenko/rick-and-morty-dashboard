@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable, catchError } from 'rxjs';
+import { Observable } from 'rxjs';
 import { IApiMain } from '../../../models/api-main/api-main.interface';
 import { ICharacter } from '../../../models/character/character.interface';
 import { environment } from '../../../../environments/environment';
@@ -15,11 +15,11 @@ export class CharacterService {
   private apiUrl = `${environment.api}/character`;
 
   onGetCharacters(
-    name: string,
-    pageIndex: number = 0
+    pageIndex: number = 0,
+    name: string = ''
   ): Observable<IApiMain<ICharacter>> {
     return this.http.get<IApiMain<ICharacter>>(
-      `${this.apiUrl}?name=${name}&page=${pageIndex + 1}`
+      `${this.apiUrl}?page=${pageIndex + 1}&name=${name}`
     );
   }
 

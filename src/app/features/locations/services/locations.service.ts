@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable, catchError } from 'rxjs';
+import { Observable } from 'rxjs';
 import { ILocation } from '../../../models/location/location.interface';
 import { IApiMain } from '../../../models/api-main/api-main.interface';
 import { environment } from '../../../../environments/environment';
@@ -15,11 +15,11 @@ export class LocationService {
   private apiUrl = `${environment.api}/location`;
 
   onGetLocations(
-    name: string,
-    pageIndex: number = 0
+    pageIndex: number = 0,
+    name: string = ''
   ): Observable<IApiMain<ILocation>> {
     return this.http.get<IApiMain<ILocation>>(
-      `${this.apiUrl}?name=${name}&page=${pageIndex + 1}`
+      `${this.apiUrl}?page=${pageIndex + 1}&name=${name}`
     );
   }
 

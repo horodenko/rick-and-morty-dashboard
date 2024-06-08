@@ -1,13 +1,10 @@
-import { Component, OnDestroy } from '@angular/core';
+import { Component } from '@angular/core';
 import { LocationService } from '../../services/locations.service';
 import { ILocation } from '../../../../models/location/location.interface';
 import { DashboardComponent } from '../../../../shared/components/dashboard/dashboard.component';
-import { Subscription, catchError } from 'rxjs';
 import { SearchService } from '../../../../shared/services/search.service';
 import { HttpErrorResponse } from '@angular/common/http';
-import { IFetchData } from '../../../../models/pagination/pagination.interface';
-import { IApiMain } from '../../../../models/api-main/api-main.interface';
-import { PageEvent } from '@angular/material/paginator';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-locations',
@@ -24,32 +21,52 @@ export class LocationsComponent {
 
   protected locations: ILocation[] = [];
   protected currentPage: number = 0;
-  protected paginationInfo: Omit<IApiMain<ILocation>, 'results'> = {
-    info: { count: 0, pages: 0, next: null, prev: null },
-  };
   protected columns: string[] = ['name', 'type', 'dimension'];
   protected errorMessage: string = '';
+  protected hasLoadedAll: boolean = false;
+  protected previousValue: string = '';
+  private locationSubscription: Subscription = new Subscription();
 
   ngAfterViewInit(): void {
     this.onFetchData(this.searchService.getSearchValue());
   }
 
   onFetchData(value: string, pageIndex: number = 0): void {
-    this.locationService.onGetLocations(value, pageIndex).subscribe({
+    /** The following could be done so everything goes in only one function;
+     *
+     *  if the user is searching for the same value as he goes down the list, the list goes on,
+     *  but if he searches for another value, it resets and a new list is created.
+     */
+    if (value !== this.previousValue) {
+      this.locations = [];
+      this.currentPage = 0;
+      this.hasLoadedAll = false;
+    }
+
+    /** if there are no more results to search for, stop entering the requisition */
+    if (this.hasLoadedAll) return;
+    this.hasLoadedAll = true;
+
+    this.locationService.onGetLocations(this.currentPage, value).subscribe({
       next: data => {
-        this.locations = data.results;
-        this.paginationInfo.info = data.info;
+        /** if there are no more pages next, unsubscribe from the observable  */
+        if (!data.info.next && this.locations.length) {
+          return this.locationSubscription.unsubscribe();
+        }
+
+        /** Keep incrementing on the list */
+        this.locations = this.locations.concat(data.results);
         this.errorMessage = '';
+        this.currentPage++;
+        this.previousValue = value;
       },
       error: (error: HttpErrorResponse) => {
         this.locations = [];
         this.errorMessage = error.error.error;
       },
+      complete: () => {
+        this.hasLoadedAll = false;
+      },
     });
-  }
-
-  onPageChange(event: PageEvent): void {
-    this.currentPage = event.pageIndex;
-    this.onFetchData(this.searchService.getSearchValue(), event.pageIndex);
   }
 }
