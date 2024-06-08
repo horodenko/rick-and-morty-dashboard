@@ -15,8 +15,6 @@ export class ProfileComponent {
   protected username: string = '';
 
   ngOnInit(): void {
-    this.userService.currentUsername$.subscribe(
-      username => (this.username = `${username}, the cool one`)
-    );
+    this.username = this.userService.onRetrieveUsername();
   }
 }
