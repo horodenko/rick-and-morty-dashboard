@@ -33,8 +33,7 @@ export class NavComponent {
   constructor(
     private authService: AuthService,
     private userService: UserService,
-    private router: Router,
-    private route: ActivatedRoute
+    private router: Router
   ) {
     this.router.events.subscribe(event => {
       if (event instanceof NavigationStart) {

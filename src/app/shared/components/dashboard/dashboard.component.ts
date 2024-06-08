@@ -44,11 +44,6 @@ export class DashboardComponent<T> {
     private searchService: SearchService
   ) {}
 
-  /** Scroll to top button  */
-  @HostListener('window:scroll')
-  onWindowScroll(): void {}
-  protected showButton: boolean = false;
-
   /** Search bar */
   @Input() searchValue: string = '';
   @Output() fetchData = new EventEmitter<string>();
@@ -80,6 +75,4 @@ export class DashboardComponent<T> {
     this.searchService.setSearchValue(this.searchValue);
     this.fetchData.emit(this.searchValue);
   }
-
-  scrollToTop(): void {}
 }
