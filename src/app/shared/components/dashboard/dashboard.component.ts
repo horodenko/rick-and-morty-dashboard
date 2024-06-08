@@ -18,7 +18,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { FormBuilder, ReactiveFormsModule } from '@angular/forms';
 import { SearchService } from '../../services/search.service';
 import { RouterModule } from '@angular/router';
-import { IFetchData } from '../../../models/pagination/pagination.interface';
+import { InfiniteScrollingDirective } from '../../directives/infinite-scrolling.directive';
 
 @Component({
   selector: 'app-dashboard',
@@ -31,6 +31,8 @@ import { IFetchData } from '../../../models/pagination/pagination.interface';
     MatButtonModule,
     ReactiveFormsModule,
     RouterModule,
+
+    InfiniteScrollingDirective,
   ],
   templateUrl: './dashboard.component.html',
   styleUrl: './dashboard.component.css',
@@ -52,14 +54,13 @@ export class DashboardComponent<T> {
   @Input() dataArray: T[] = [];
   @Input() columns: string[] = [];
   @Input() emptyListMessage: string = '';
+
+  /** Pagination */
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
   @Input() totalItems: number = 0;
   @Input() pageSize: number = 0;
   @Output() pageChange = new EventEmitter<PageEvent>();
-
-  // @Input() currentPage: number = 0;
-  // @Output() pageChange = new EventEmitter();
 
   protected dataSource = new MatTableDataSource<T>(this.dataArray);
   protected allData: number = 0;
@@ -67,20 +68,11 @@ export class DashboardComponent<T> {
 
   ngOnInit(): void {
     this.displayedColumns = [...this.columns, 'details'];
-    this.dataSource.paginator = this.paginator;
-    this.dataSource.sort = this.sort;
   }
-
-  ngAfterViewInit(): void {}
 
   onSearch(): void {
     this.searchValue = this.searchForm.value.searchValue ?? '';
     this.searchService.setSearchValue(this.searchValue);
     this.fetchData.emit(this.searchValue);
-  }
-
-  onPageChange(event: PageEvent): void {
-    console.log(event);
-    this.pageChange.emit(event);
   }
 }

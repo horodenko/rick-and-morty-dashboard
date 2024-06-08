@@ -1,57 +1,55 @@
 <div class="container">
   <form [formGroup]="searchForm" class="search-bar" (ngSubmit)="onSearch()">
-    <input
-      type="text"
-      placeholder="Search"
-      formControlName="searchValue"
-      class="search-bar-input"
-    />
+    <div class="d-flex justify-content-end align-items-end mb-3">
+      <div class="input-group rounded">
+        <input
+          type="search"
+          class="form-control rounded"
+          placeholder="Search"
+          formControlName="searchValue"
+          aria-label="Search"
+          aria-describedby="search-addon"
+        />
+        <button
+          class="btn btn-light input-group-text border-0 ms-2"
+          type="submit"
+        >
+          <i class="bi bi-search"></i>
+        </button>
+      </div>
+    </div>
   </form>
 </div>
 
-<div class="table-container">
-  <table mat-table matSort [dataSource]="dataArray" class="mat-elevation-z8">
-    <ng-container
-      *ngFor="let column of displayedColumns"
-      [matColumnDef]="column"
-    >
-      <th mat-header-cell *matHeaderCellDef mat-sort-header>
-        {{ column | uppercase }}
-      </th>
+<table
+  appInfiniteScrolling
+  (nearEnd)="onSearch()"
+  mat-table
+  [dataSource]="dataArray"
+>
+  <ng-container *ngFor="let column of displayedColumns" [matColumnDef]="column">
+    <th mat-header-cell *matHeaderCellDef mat-sort-header>
+      {{ column | uppercase }}
+    </th>
 
-      <ng-container *ngIf="column !== 'details'; else elementDetail">
-        <td mat-cell *matCellDef="let element">
-          {{ element[column] }}
-        </td>
-      </ng-container>
-
-      <ng-template #elementDetail>
-        <td mat-cell *matCellDef="let element">
-          <a color="primary" [routerLink]="element.id">
-            <mat-icon>remove_red_eye</mat-icon>
-          </a>
-        </td>
-      </ng-template>
+    <ng-container *ngIf="column !== 'details'; else elementDetail">
+      <td mat-cell *matCellDef="let element">
+        {{ element[column] }}
+      </td>
     </ng-container>
 
-    <tr
-      mat-header-row
-      *matHeaderRowDef="displayedColumns; sticky: true"
-      class="table-header"
-    ></tr>
-    <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
-  </table>
-  <ng-container *ngIf="emptyListMessage">
-    <h2>{{ emptyListMessage }}.</h2>
+    <ng-template #elementDetail>
+      <td mat-cell *matCellDef="let element">
+        <a color="primary" [routerLink]="element.id">
+          <mat-icon>remove_red_eye</mat-icon>
+        </a>
+      </td>
+    </ng-template>
   </ng-container>
-</div>
 
-<mat-paginator
-  [length]="totalItems"
-  [pageSize]="pageSize"
-  [pageSizeOptions]="[5, 10, 25, totalItems]"
-  (page)="onPageChange($event)"
-  showFirstLastButtons
-  #paginator
-></mat-paginator>
-<!-- [pageSizeOptions]="[5, 10, 25, totalItems]" -->
+  <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+  <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+</table>
+<ng-container *ngIf="emptyListMessage">
+  <h2>{{ emptyListMessage }}.</h2>
+</ng-container>
