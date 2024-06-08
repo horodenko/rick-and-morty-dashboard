@@ -7,16 +7,27 @@ import { LocationDetailComponent } from './features/locations/pages/locations/lo
 import { CharacterDetailComponent } from './features/characters/pages/characters/character-detail/character-detail.component';
 import { LoginComponent } from './features/login/pages/login.component';
 import { ProfileComponent } from './features/profile/pages/profile.component';
+import { authGuard } from './auth.guard';
 
 export const routes: Routes = [
-  { path: '', redirectTo: 'sign-in', pathMatch: 'full' },
-  { path: 'sign-in', component: LoginComponent },
-  { path: 'user-profile', component: ProfileComponent },
-  { path: 'characters', component: CharactersComponent },
+  {
+    path: '',
+    pathMatch: 'full',
+    redirectTo: '/characters',
+  },
+  {
+    path: 'sign-in',
+    component: LoginComponent,
+  },
+  {
+    path: 'characters',
+    component: CharactersComponent,
+    canActivate: [authGuard],
+  },
   { path: 'characters/:id', component: CharacterDetailComponent },
   { path: 'locations', component: LocationsComponent },
   { path: 'locations/:id', component: LocationDetailComponent },
   { path: 'episodes', component: EpisodesComponent },
   { path: 'episodes/:id', component: EpisodeDetailComponent },
-  { path: 'episodes/:id', component: EpisodeDetailComponent },
+  { path: 'user-profile', component: ProfileComponent },
 ];
