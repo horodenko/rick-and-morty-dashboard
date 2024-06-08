@@ -1,5 +1,10 @@
 import { Component, ViewChild } from '@angular/core';
-import { NavigationStart, Router, RouterModule } from '@angular/router';
+import {
+  ActivatedRoute,
+  NavigationStart,
+  Router,
+  RouterModule,
+} from '@angular/router';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatIconModule } from '@angular/material/icon';
 import { MatDrawer, MatSidenavModule } from '@angular/material/sidenav';
@@ -28,7 +33,8 @@ export class NavComponent {
   constructor(
     private authService: AuthService,
     private userService: UserService,
-    private router: Router
+    private router: Router,
+    private route: ActivatedRoute
   ) {
     this.router.events.subscribe(event => {
       if (event instanceof NavigationStart) {
@@ -47,6 +53,7 @@ export class NavComponent {
 
   protected username: string = '';
   protected isInSignInPage: boolean = false;
+  protected changedHeightClass: string = '';
 
   ngAfterViewChecked(): void {
     this.username = this.userService.onRetrieveUsername();

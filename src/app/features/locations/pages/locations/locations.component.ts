@@ -61,8 +61,11 @@ export class LocationsComponent {
         this.previousValue = value;
       },
       error: (error: HttpErrorResponse) => {
-        this.locations = [];
-        this.errorMessage = error.error.error;
+        /** handle error only if user has searched for a non-existent item */
+        if (!this.locations.length) {
+          this.locations = [];
+          this.errorMessage = error.error.error;
+        }
       },
       complete: () => {
         this.hasLoadedAll = false;

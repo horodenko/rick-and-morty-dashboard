@@ -1,66 +1,71 @@
-<ng-container *ngIf="!locationExists; else locationInfo"></ng-container>
-<ng-template #locationInfo>
-  <div class="d-xl-flex">
-    <div class="container">
-      <div class="row">
-        <div class="col-lg-4 field-container">
-          <label>Name</label
-          ><input
-            class="form-control"
-            type="text"
-            [placeholder]="locationDetails?.name"
-            readonly
-          />
-        </div>
-        <div class="col-lg-4 field-container">
-          <label>Type</label
-          ><input
-            class="form-control"
-            type="text"
-            [placeholder]="locationDetails?.type"
-            readonly
-          />
-        </div>
-        <div class="col-lg-4 field-container">
-          <label>Dimension</label
-          ><input
-            class="form-control"
-            type="text"
-            [placeholder]="locationDetails?.dimension"
-            readonly
-          />
-        </div>
+<nav class="position-absolute start-0 top-0">
+  <a routerLink=".." class="btn btn-light" role="button">
+    <i class="bi bi-arrow-bar-left"></i>
+    <span> Go back </span>
+  </a>
+</nav>
+
+<div class="d-xl-flex">
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-4 field-container">
+        <label>Name</label
+        ><input
+          class="form-control"
+          type="text"
+          [placeholder]="locationDetails?.name"
+          readonly
+        />
       </div>
-      <div class="row">
-        <div class="col-lg-4 field-container">
-          <label>Residents</label>
-          <select class="form-select" (change)="onResidentChange($event)">
-            <ng-container *ngFor="let resident of residentInfos">
-              <option [value]="resident.id">{{ resident.name }}</option>
-            </ng-container>
-          </select>
-        </div>
-        <div class="col-lg-4 field-container">
-          <a
-            class="btn btn-primary"
-            *ngIf="selectedResidentID; else disabledButton"
-            [routerLink]="['/characters', selectedResidentID]"
+      <div class="col-lg-4 field-container">
+        <label>Type</label
+        ><input
+          class="form-control"
+          type="text"
+          [placeholder]="locationDetails?.type"
+          readonly
+        />
+      </div>
+      <div class="col-lg-4 field-container">
+        <label>Dimension</label
+        ><input
+          class="form-control"
+          type="text"
+          [placeholder]="locationDetails?.dimension"
+          readonly
+        />
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-lg-4 field-container">
+        <label>Residents</label>
+        <select class="form-select" (change)="onResidentChange($event)">
+          <ng-container *ngFor="let resident of residentInfos">
+            <option [value]="resident.id">{{ resident.name }}</option>
+          </ng-container>
+        </select>
+      </div>
+      <div class="col-lg-4 field-container">
+        <a
+          class="btn btn-light"
+          *ngIf="selectedResidentID; else disabledButton"
+          [routerLink]="['/characters', selectedResidentID]"
+          role="button"
+          aria-disabled="true"
+          >Check Resident
+        </a>
+        <ng-template #disabledButton>
+          <button
+            class="btn btn-light"
             role="button"
+            disabled
             aria-disabled="true"
-            >Check Resident
-          </a>
-          <ng-template #disabledButton>
-            <button
-              class="btn btn-primary"
-              role="button"
-              disabled
-              aria-disabled="true"
-            >
-              Check Character
-            </button>
-          </ng-template>
-        </div>
+          >
+            Check Character
+          </button>
+        </ng-template>
       </div>
     </div>
   </div>
-</ng-template>
+</div>
+<div class="remaining-height"></div>

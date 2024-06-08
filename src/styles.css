@@ -12,5 +12,6 @@ body {
 }
 body {
   margin: 0;
+  background-color: #fafafa !important;
   font-family: Roboto, 'Helvetica Neue', sans-serif;
 }

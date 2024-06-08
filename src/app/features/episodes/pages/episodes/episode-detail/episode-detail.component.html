@@ -1,67 +1,72 @@
-<ng-container *ngIf="!episodeExists; else episodeInfo"></ng-container>
-<ng-template #episodeInfo>
-  <div class="d-xl-flex">
-    <div class="container">
-      <div class="row">
-        <div class="col-lg-4 field-container">
-          <label>Name</label
-          ><input
-            class="form-control"
-            type="text"
-            [placeholder]="episodeDetails?.name"
-            readonly
-          />
-        </div>
-        <div class="col-lg-4 field-container">
-          <label>Air Date</label
-          ><input
-            class="form-control"
-            type="text"
-            [placeholder]="episodeDetails?.air_date"
-            readonly
-          />
-        </div>
-        <div class="col-lg-4 field-container">
-          <label>Episode</label
-          ><input
-            class="form-control"
-            type="text"
-            [placeholder]="episodeDetails?.episode"
-            readonly
-          />
-        </div>
+<nav class="position-absolute start-0 top-0">
+  <a routerLink=".." class="btn btn-light" role="button">
+    <i class="bi bi-arrow-bar-left"></i>
+    <span> Go back </span>
+  </a>
+</nav>
+
+<div class="d-xl-flex">
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-4 field-container">
+        <label>Name</label
+        ><input
+          class="form-control"
+          type="text"
+          [placeholder]="episodeDetails?.name"
+          readonly
+        />
       </div>
-      <div class="row">
-        <div class="col-lg-4 field-container">
-          <label>Characters</label>
-          <select class="form-select" (change)="onCharacterChange($event)">
-            <ng-container *ngFor="let character of characterInfos">
-              <option [value]="character.id">{{ character.name }}</option>
-            </ng-container>
-          </select>
-        </div>
-        <div class="col-lg-4 field-container">
-          <a
-            class="btn btn-primary"
-            *ngIf="selectedCharacterID; else disabledButton"
-            [routerLink]="['/characters', selectedCharacterID]"
+      <div class="col-lg-4 field-container">
+        <label>Air Date</label
+        ><input
+          class="form-control"
+          type="text"
+          [placeholder]="episodeDetails?.air_date"
+          readonly
+        />
+      </div>
+      <div class="col-lg-4 field-container">
+        <label>Episode</label
+        ><input
+          class="form-control"
+          type="text"
+          [placeholder]="episodeDetails?.episode"
+          readonly
+        />
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-lg-4 field-container">
+        <label>Characters</label>
+        <select class="form-select" (change)="onCharacterChange($event)">
+          <ng-container *ngFor="let character of characterInfos">
+            <option [value]="character.id">{{ character.name }}</option>
+          </ng-container>
+        </select>
+      </div>
+      <div class="col-lg-4 field-container">
+        <a
+          class="btn btn-light"
+          *ngIf="selectedCharacterID; else disabledButton"
+          [routerLink]="['/characters', selectedCharacterID]"
+          role="button"
+          aria-disabled="false"
+        >
+          Check Character
+        </a>
+        <ng-template #disabledButton>
+          <button
+            class="btn btn-light"
             role="button"
-            aria-disabled="false"
+            disabled
+            aria-disabled="true"
           >
             Check Character
-          </a>
-          <ng-template #disabledButton>
-            <button
-              class="btn btn-primary"
-              role="button"
-              disabled
-              aria-disabled="true"
-            >
-              Check Character
-            </button>
-          </ng-template>
-        </div>
+          </button>
+        </ng-template>
       </div>
     </div>
   </div>
-</ng-template>
+</div>
+<div class="remaining-height"></div>

@@ -2,6 +2,7 @@ import { CommonModule } from '@angular/common';
 import {
   Component,
   EventEmitter,
+  HostListener,
   Input,
   Output,
   ViewChild,
@@ -43,6 +44,11 @@ export class DashboardComponent<T> {
     private searchService: SearchService
   ) {}
 
+  /** Scroll to top button  */
+  @HostListener('window:scroll')
+  onWindowScroll(): void {}
+  protected showButton: boolean = false;
+
   /** Search bar */
   @Input() searchValue: string = '';
   @Output() fetchData = new EventEmitter<string>();
@@ -61,7 +67,6 @@ export class DashboardComponent<T> {
   @Input() totalItems: number = 0;
   @Input() pageSize: number = 0;
   @Output() pageChange = new EventEmitter<PageEvent>();
-
   protected dataSource = new MatTableDataSource<T>(this.dataArray);
   protected allData: number = 0;
   protected displayedColumns: string[] = [];
@@ -75,4 +80,6 @@ export class DashboardComponent<T> {
     this.searchService.setSearchValue(this.searchValue);
     this.fetchData.emit(this.searchValue);
   }
+
+  scrollToTop(): void {}
 }

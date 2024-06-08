@@ -65,8 +65,11 @@ export class EpisodesComponent {
         this.previousValue = value;
       },
       error: (error: HttpErrorResponse) => {
-        this.episodes = [];
-        this.errorMessage = error.error.error;
+        /** handle error only if user has searched for a non-existent item */
+        if (!this.episodes.length) {
+          this.episodes = [];
+          this.errorMessage = error.error.error;
+        }
       },
       complete: () => {
         this.hasLoadedAll = false;

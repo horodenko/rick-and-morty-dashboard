@@ -63,8 +63,11 @@ export class CharactersComponent {
           this.previousValue = value;
         },
         error: (error: HttpErrorResponse) => {
-          this.characters = [];
-          this.errorMessage = error.error.error;
+          /** handle error only if user has searched for a non-existent item */
+          if (!this.characters.length) {
+            this.characters = [];
+            this.errorMessage = error.error.error;
+          }
         },
         complete: () => {
           this.hasLoadedAll = false;

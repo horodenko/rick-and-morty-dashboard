@@ -13,3 +13,7 @@
 .field-container :is(a, button) {
   margin-top: 20px;
 }
+
+.remaining-height {
+  height: 16rem;
+}

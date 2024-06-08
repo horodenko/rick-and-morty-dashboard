@@ -47,8 +47,8 @@
   </nav>
 </ng-container>
 
-<mat-drawer-container>
-  <mat-drawer #drawer mode="over" class="drawer">
+<mat-drawer-container [class.changed-height]="changedHeightClass">
+  <mat-drawer #drawer mode="over" class="drawer position-fixed">
     <mat-nav-list>
       <mat-list-item>
         <a
