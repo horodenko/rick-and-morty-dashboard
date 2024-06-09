@@ -1,6 +1,29 @@
-# RickAndMortyDashboard
+# Rick and Morty Dashboard
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 17.3.6.
+
+## Installation
+
+This section guides you through setting up the development environment for this project.
+
+### Prerequisites
+
+* Node.js (minimum v.18.13). Download from the official website: [Node.js](https://nodejs.org/)
+
+### Installation Steps
+
+1. Ensure you have Node.js installed on your system.
+2. Open a terminal window and navigate to the project directory using the `cd` command.
+    ```
+      example:
+        cd rick-and-morty-dashboard
+    ```
+3. Install Angular CLI with the following commmand:
+    ```
+      npm install @angular/cli
+    ```
+
+This will download and install all the necessary packages required to run the application.
 
 ## Development server
 
