@@ -14,8 +14,8 @@ This section guides you through setting up the development environment for this 
 
 1. Ensure you have Node.js installed on your system.
 2. Open a terminal window and navigate to the project directory using the `cd` command.
+   Example:
     ```
-      example:
         cd rick-and-morty-dashboard
     ```
 3. Install Angular CLI with the following commmand:
