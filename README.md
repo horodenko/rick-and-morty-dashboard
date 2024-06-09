@@ -16,11 +16,11 @@ This section guides you through setting up the development environment for this 
 2. Open a terminal window and navigate to the project directory using the `cd` command.
    Example:
     ```
-        cd rick-and-morty-dashboard
+       cd rick-and-morty-dashboard
     ```
 3. Install Angular CLI with the following commmand:
     ```
-      npm install @angular/cli
+       npm install @angular/cli
     ```
 
 This will download and install all the necessary packages required to run the application.
