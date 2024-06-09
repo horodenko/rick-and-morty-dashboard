@@ -33,7 +33,10 @@ export class LocationDetailComponent {
     this.onLoadLocationDetails();
   }
 
-  onLoadLocationDetails() {
+  /**
+   * @returns {void}
+   */
+  onLoadLocationDetails(): void {
     this.locationService.onGetLocationDetails(Number(this.routeID)).subscribe({
       next: data => {
         this.locationDetails = data;
@@ -47,16 +50,30 @@ export class LocationDetailComponent {
     });
   }
 
-  onRetrieveResidents() {
+  /**
+   * @returns {void}
+   */
+  onRetrieveResidents(): void {
+    /**
+     * @description
+     * Gets array of route strings and returns only their IDs into a new array
+     * */
     const residentIDs = this.locationDetails?.residents.map(url =>
       url.split('/').pop()
     );
 
+    /**
+     * @description
+     * Makes a requisition for all characters using each of their IDs
+     * */
     const requests = residentIDs!.map(id =>
       this.characterService.onGetCharacterDetails(Number(id))
     );
 
-    /** Assign residents to completed observables */
+    /**
+     * @description
+     * Assigns characters to completed observables
+     * */
     forkJoin<ICharacterDetail[]>(requests).subscribe({
       next: newResidents => {
         this.residentInfos = newResidents;
@@ -65,7 +82,12 @@ export class LocationDetailComponent {
     });
   }
 
-  onResidentChange(event: Event) {
+  /**
+   * @description Assigns select option to variable
+   * @param {Event} event
+   * @returns {void}
+   */
+  onResidentChange(event: Event): void {
     const selectedElement = event.target as HTMLSelectElement;
     this.selectedResidentID = Number(selectedElement.value);
   }

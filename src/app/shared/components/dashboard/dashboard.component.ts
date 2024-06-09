@@ -1,8 +1,26 @@
+/**
+ * @description
+ * This component is used to create a mat-table in the a parent component,
+ * where a list of results will be shown based on their data source data.
+ *
+ * It is used in:
+ *  - characters.component
+ *  - locations.component
+ *  - episodes.component
+ * @example
+ * <app-dashboard
+ *  [loading]="loading">
+ *  [dataArray]="data"
+ *  [columns]="columns"
+ *  (emptyListMessage]="errorMessage"
+ *  (fetchData)="onFetchData($event)"
+ * </app-dashboard>
+ */
+
 import { CommonModule } from '@angular/common';
 import {
   Component,
   EventEmitter,
-  HostListener,
   Input,
   Output,
   ViewChild,
@@ -70,6 +88,12 @@ export class DashboardComponent<T> {
     this.displayedColumns = [...this.columns, 'details'];
   }
 
+  /**
+   * @description
+   * Updates the search value to be shared among all pages and emits the FetchData()
+   * function used in parent components
+   * @returns {void}
+   */
   onSearch(): void {
     this.searchValue = this.searchForm.value.searchValue ?? '';
     this.searchService.setSearchValue(this.searchValue);

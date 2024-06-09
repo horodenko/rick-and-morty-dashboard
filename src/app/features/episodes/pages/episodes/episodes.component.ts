@@ -35,37 +35,46 @@ export class EpisodesComponent {
     this.onFetchData(this.searchService.getSearchValue());
   }
 
+  /** 
+    @description Responsible to gather the data to fill the table 
+    @param {string} value
+    @returns {void}
+  */
   onFetchData(value: string = ''): void {
-    /** The following could be done so everything goes in only one function;
-     *
-     *  if the user is searching for the same value as he goes down the list, the list goes on,
+    /** The following was done so everything goes in only one function;
+
+     *  @description
+     *  If the user is searching for the same value as he goes down the list, the list goes on,
      *  but if he searches for another value, it resets and a new list is created.
-     */
+    */
     if (value !== this.previousValue) {
       this.episodes = [];
       this.currentPage = 0;
       this.hasLoadedAll = false;
     }
 
-    /** if there are no more results to search for, stop entering the requisition */
+    /**
+     *
+     * @description
+     * Avoids entering below requisition if there are no more results to search for
+     */
     if (this.hasLoadedAll) return;
     this.hasLoadedAll = true;
 
     this.episodeService.onGetEpisodes(this.currentPage, value).subscribe({
       next: data => {
-        /** if there are no more pages next and the array is not empty, unsubscribe from the observable  */
+        /** @description Unsubscribes from Observable if there are no pages next  */
         if (!data.info.next && this.episodes.length) {
           return this.episodeSubscription.unsubscribe();
         }
 
-        /** Keep incrementing on the list */
         this.episodes = this.episodes.concat(data.results);
         this.errorMessage = '';
         this.currentPage++;
         this.previousValue = value;
       },
       error: (error: HttpErrorResponse) => {
-        /** handle error only if user has searched for a non-existent item */
+        /** @description Handles error only if user has searched for a non-existent item */
         if (!this.episodes.length) {
           this.episodes = [];
           this.errorMessage = error.error.error;

@@ -14,6 +14,14 @@ export class EpisodeService {
 
   private apiUrl = `${environment.api}/episode`;
 
+  /**
+   *
+   * @description Returns a list of episodes based on query parameters
+   * @param {string} pageIndex - The current page
+   * @param {string} name - The episode name passed in the search bar
+   * @returns {IApiMain<IEpisode>} - A list of episodes (IApiMain<T[]>)
+   *
+   */
   onGetEpisodes(
     pageIndex: number = 0,
     name: string = ''
@@ -23,6 +31,11 @@ export class EpisodeService {
     );
   }
 
+  /**
+   * @description Returns a single object containing details about a episode
+   * @param {number} id - The episode's id
+   * @returns {IEpisodeDetail} - An episode object
+   */
   onGetEpisodeDetails(id: number): Observable<IEpisodeDetail> {
     return this.http.get<IEpisodeDetail>(`${this.apiUrl}/${id}`);
   }

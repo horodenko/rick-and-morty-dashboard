@@ -37,9 +37,11 @@ export class NavComponent {
   ) {
     this.router.events.subscribe(event => {
       if (event instanceof NavigationStart) {
-        // hide header when in login page;
-        // couldnt treat it with authentication,
-        // because app-nav is parent of router-outlet.
+        /**
+         * Hide header when in login page;
+         * Couldn't treat it with authentication,
+         * because app-nav is parent of router-outlet.
+         */
         if (event.url === '/sign-in') {
           this.isInSignInPage = true;
           this.drawer.close();
@@ -58,5 +60,9 @@ export class NavComponent {
     this.username = this.userService.onRetrieveUsername();
   }
 
+  /**
+   *
+   * @returns {void}
+   */
   onSignOut = (): void => this.authService.onSignOut();
 }

@@ -14,6 +14,14 @@ export class LocationService {
 
   private apiUrl = `${environment.api}/location`;
 
+  /**
+   *
+   * @description Returns a list of locations based on query parameters
+   * @param {string} pageIndex - The current page
+   * @param {string} name - The location name passed in the search bar
+   * @returns {IApiMain<ILocation>} - A list of locations (IApiMain<T[]>)
+   *
+   */
   onGetLocations(
     pageIndex: number = 0,
     name: string = ''
@@ -23,6 +31,11 @@ export class LocationService {
     );
   }
 
+  /**
+   * @description Returns a single object containing details about a location
+   * @param {number} id - The location's id
+   * @returns {ILocationDetail} - A location object
+   */
   onGetLocationDetails(id: number): Observable<ILocationDetail> {
     return this.http.get<ILocationDetail>(`${this.apiUrl}/${id}`);
   }

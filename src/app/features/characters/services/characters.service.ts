@@ -14,6 +14,14 @@ export class CharacterService {
 
   private apiUrl = `${environment.api}/character`;
 
+  /**
+   *
+   * @description Returns a list of characters based on query parameters
+   * @param {string} pageIndex - The current page
+   * @param {string} name - The character name passed in the search bar
+   * @returns {IApiMain<ICharacter>} - A list of characters (IApiMain<T[]>)
+   *
+   */
   onGetCharacters(
     pageIndex: number = 0,
     name: string = ''
@@ -23,6 +31,11 @@ export class CharacterService {
     );
   }
 
+  /**
+   * @description Returns a single object containing details about a character
+   * @param {number} id - The character's id
+   * @returns {ICharacterDetail} - A character object
+   */
   onGetCharacterDetails(id: number): Observable<ICharacterDetail> {
     return this.http.get<ICharacterDetail>(`${this.apiUrl}/${id}`);
   }

@@ -33,7 +33,10 @@ export class EpisodeDetailComponent {
     this.onLoadEpisodeDetails();
   }
 
-  onLoadEpisodeDetails() {
+  /**
+   * @returns {void}
+   */
+  onLoadEpisodeDetails(): void {
     this.episodeService.onGetEpisodeDetails(Number(this.routeID)).subscribe({
       next: data => {
         this.episodeDetails = data;
@@ -47,16 +50,30 @@ export class EpisodeDetailComponent {
     });
   }
 
-  onRetrieveCharacters() {
+  /**
+   * @returns {void}
+   */
+  onRetrieveCharacters(): void {
+    /**
+     * @description
+     * Gets array of route strings and returns only their IDs into a new array
+     * */
     const residentIDs = this.episodeDetails?.characters.map(url =>
       url.split('/').pop()
     );
 
+    /**
+     * @description
+     * Makes a requisition for all characters using each of their IDs
+     * */
     const requests = residentIDs!.map(id =>
       this.characterService.onGetCharacterDetails(Number(id))
     );
 
-    /** Assign character to completed observables */
+    /**
+     * @description
+     * Assigns characters to completed observables
+     * */
     forkJoin<ICharacterDetail[]>(requests).subscribe({
       next: newCharacters => {
         this.characterInfos = newCharacters;
@@ -65,7 +82,12 @@ export class EpisodeDetailComponent {
     });
   }
 
-  onCharacterChange(event: Event) {
+  /**
+   * @description Assigns select option to variable
+   * @param {Event} event
+   * @returns {void}
+   */
+  onCharacterChange(event: Event): void {
     const selectedElement = event.target as HTMLSelectElement;
     this.selectedCharacterID = Number(selectedElement.value);
   }

@@ -31,19 +31,29 @@ export class CharactersComponent {
     this.onFetchData(this.searchService.getSearchValue());
   }
 
+  /** 
+    @description Responsible to gather the data to fill the table 
+    @param {string} value
+    @returns {void}
+  */
   onFetchData(value: string = ''): void {
-    /** The following could be done so everything goes in only one function;
-     *
-     *  if the user is searching for the same value as he goes down the list, the list goes on,
+    /** The following was done so everything goes in only one function;
+
+     *  @description
+     *  If the user is searching for the same value as he goes down the list, the list goes on,
      *  but if he searches for another value, it resets and a new list is created.
-     */
+    */
     if (value !== this.previousValue) {
       this.characters = [];
       this.currentPage = 0;
       this.hasLoadedAll = false;
     }
 
-    /** if there are no more results to search for, stop entering the requisition */
+    /**
+     *
+     * @description
+     * Avoids entering below requisition if there are no more results to search for
+     */
     if (this.hasLoadedAll) return;
     this.hasLoadedAll = true;
 
@@ -51,19 +61,18 @@ export class CharactersComponent {
       .onGetCharacters(this.currentPage, value)
       .subscribe({
         next: data => {
-          /** if there are no more pages next, unsubscribe from the observable  */
+          /** @description Unsubscribes from Observable if there are no pages next  */
           if (!data.info.next && this.characters.length) {
             return this.characterSubscription.unsubscribe();
           }
 
-          /** Keep incrementing on the list */
           this.characters = this.characters.concat(data.results);
           this.errorMessage = '';
           this.currentPage++;
           this.previousValue = value;
         },
         error: (error: HttpErrorResponse) => {
-          /** handle error only if user has searched for a non-existent item */
+          /** @description Handles error only if user has searched for a non-existent item */
           if (!this.characters.length) {
             this.characters = [];
             this.errorMessage = error.error.error;
